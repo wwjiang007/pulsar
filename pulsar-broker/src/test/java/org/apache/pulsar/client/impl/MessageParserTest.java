@@ -45,6 +45,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+@Test(groups = "broker-impl")
 public class MessageParserTest extends MockedPulsarServiceBaseTest {
 
     @BeforeMethod
@@ -58,7 +59,7 @@ public class MessageParserTest extends MockedPulsarServiceBaseTest {
         admin.namespaces().createNamespace("my-tenant/my-ns", Sets.newHashSet("test"));
     }
 
-    @AfterMethod
+    @AfterMethod(alwaysRun = true)
     @Override
     public void cleanup() throws Exception {
         super.internalCleanup();

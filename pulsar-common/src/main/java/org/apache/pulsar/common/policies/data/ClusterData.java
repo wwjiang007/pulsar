@@ -19,13 +19,11 @@
 package org.apache.pulsar.common.policies.data;
 
 import static com.google.common.base.Preconditions.checkNotNull;
-
 import com.google.common.base.MoreObjects;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.LinkedHashSet;
 import java.util.Objects;
-
 import org.apache.pulsar.client.api.ProxyProtocol;
 
 /**
@@ -198,9 +196,13 @@ public class ClusterData {
 
     @Override
     public String toString() {
-        return MoreObjects.toStringHelper(this).add("serviceUrl", serviceUrl).add("serviceUrlTls", serviceUrlTls)
-                .add("brokerServiceUrl", brokerServiceUrl).add("brokerServiceUrlTls", brokerServiceUrlTls)
-                .add("proxyServiceUrl", proxyServiceUrl).add("proxyProtocol", proxyProtocol)
+        return MoreObjects.toStringHelper(this)
+                .add("serviceUrl", serviceUrl)
+                .add("serviceUrlTls", serviceUrlTls)
+                .add("brokerServiceUrl", brokerServiceUrl)
+                .add("brokerServiceUrlTls", brokerServiceUrlTls)
+                .add("proxyServiceUrl", proxyServiceUrl)
+                .add("proxyProtocol", proxyProtocol)
                 .add("peerClusterNames", peerClusterNames).toString();
     }
 

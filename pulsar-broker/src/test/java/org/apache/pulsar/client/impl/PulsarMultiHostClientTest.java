@@ -37,6 +37,7 @@ import java.util.concurrent.TimeUnit;
 
 import static org.testng.Assert.fail;
 
+@Test(groups = "broker-impl")
 public class PulsarMultiHostClientTest extends ProducerConsumerBase {
 
     private static final Logger log = LoggerFactory.getLogger(PulsarMultiHostClientTest.class);
@@ -48,14 +49,14 @@ public class PulsarMultiHostClientTest extends ProducerConsumerBase {
         super.producerBaseSetup();
     }
 
-    @AfterMethod
+    @AfterMethod(alwaysRun = true)
     @Override
     protected void cleanup() throws Exception {
         super.internalCleanup();
     }
 
     @Test
-    public void testGetPartitionedTopicMetaData() throws Exception {
+    public void testGetPartitionedTopicMetaData() {
         log.info("-- Starting {} test --", methodName);
 
         final String topicName = "persistent://my-property/my-ns/my-topic1";
@@ -137,7 +138,7 @@ public class PulsarMultiHostClientTest extends ProducerConsumerBase {
         }
 
         Message<byte[]> msg = null;
-        Set<String> messageSet = new HashSet();
+        Set<String> messageSet = new HashSet<>();
         for (int i = 0; i < 5; i++) {
             msg = consumer.receive(5, TimeUnit.SECONDS);
             String receivedMessage = new String(msg.getData());

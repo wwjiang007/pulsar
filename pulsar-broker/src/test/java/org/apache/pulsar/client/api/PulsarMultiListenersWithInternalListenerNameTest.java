@@ -39,6 +39,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
+@Test(groups = "broker-api")
 public class PulsarMultiListenersWithInternalListenerNameTest extends MockedPulsarServiceBaseTest {
 
     private ExecutorService executorService;
@@ -64,8 +65,9 @@ public class PulsarMultiListenersWithInternalListenerNameTest extends MockedPuls
         this.conf.setInternalListenerName("internal");
     }
 
-    protected PulsarClient newPulsarClient(String url, int intervalInSecs) throws PulsarClientException {
-        return PulsarClient.builder().serviceUrl(url).listenerName("internal").statsInterval(intervalInSecs, TimeUnit.SECONDS).build();
+    @Override
+    protected void customizeNewPulsarClientBuilder(ClientBuilder clientBuilder) {
+        clientBuilder.listenerName("internal");
     }
 
     @Test
@@ -93,10 +95,10 @@ public class PulsarMultiListenersWithInternalListenerNameTest extends MockedPuls
         }
     }
 
-    @AfterMethod
+    @AfterMethod(alwaysRun = true)
     @Override
     protected void cleanup() throws Exception {
-        if (this.executorService != null) {
+        if (this.lookupService != null) {
             this.lookupService.close();
         }
         if (this.executorService != null) {
